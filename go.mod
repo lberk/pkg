@@ -42,7 +42,7 @@ require (
 	github.com/openzipkin/zipkin-go v0.2.5
 	github.com/prometheus/client_golang v1.8.0
 	github.com/prometheus/common v0.14.0
-	github.com/rogpeppe/go-internal v1.5.2 // indirect
+	github.com/rogpeppe/go-internal v1.6.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/tsenart/vegeta/v12 v12.8.4
 	go.opencensus.io v0.22.5
@@ -50,11 +50,11 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0 // indirect
-	golang.org/x/net v0.0.0-20200904194848-62affa334b73
+	golang.org/x/net v0.0.0-20201021035429-f5854403a974
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
-	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
+	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
-	golang.org/x/tools v0.0.0-20200916195026-c9a70fc28ce3
+	golang.org/x/tools v0.0.0-20201110032815-ae45d7cf37a9
 	gomodules.xyz/jsonpatch/v2 v2.1.0
 	google.golang.org/api v0.34.0
 	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d
@@ -64,7 +64,7 @@ require (
 	gopkg.in/evanphx/json-patch.v4 v4.9.0
 	gopkg.in/yaml.v2 v2.3.0
 	gopkg.in/yaml.v3 v3.0.0-20190709130402-674ba3eaed22
-	honnef.co/go/tools v0.0.1-2020.1.5 // indirect
+	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/api v0.18.8
 	k8s.io/apiextensions-apiserver v0.18.8
 	k8s.io/apimachinery v0.18.8

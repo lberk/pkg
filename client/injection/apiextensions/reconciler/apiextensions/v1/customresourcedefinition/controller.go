@@ -61,7 +61,7 @@ func NewImpl(ctx context.Context, r Interface, optionsFns ...controller.OptionsF
 
 	lister := customresourcedefinitionInformer.Lister()
 
-	filterFunc := controller.GetFilterFunc(ctx)
+	filterFunc := controller.AlwaysTrue
 	rec := &reconcilerImpl{
 		LeaderAwareFuncs: reconciler.LeaderAwareFuncs{
 			PromoteFunc: func(bkt reconciler.Bucket, enq func(reconciler.Bucket, types.NamespacedName)) error {
@@ -107,8 +107,10 @@ func NewImpl(ctx context.Context, r Interface, optionsFns ...controller.OptionsF
 		if opts.SkipStatusUpdates {
 			rec.skipStatusUpdates = true
 		}
+		if opts.GlobalFilterFunc != nil {
+			filterFunc = opts.GlobalFilterFunc
+		}
 	}
-
 	rec.Recorder = createRecorder(ctx, agentName)
 
 	return impl

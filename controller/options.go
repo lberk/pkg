@@ -35,6 +35,8 @@ type Options struct {
 	// SkipStatusUpdates configures this reconciler to either do automated status
 	// updates (default) or skip them if this is set to true.
 	SkipStatusUpdates bool
+
+	GlobalFilterFunc FilterFunc
 }
 
 // OptionsFn is a callback method signature that accepts an Impl and returns

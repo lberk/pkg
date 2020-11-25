@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	goruntime "runtime"
 	"sync"
 	"time"
 
@@ -57,10 +58,10 @@ var (
 	// Run on the controller directly.
 	DefaultThreadsPerController = 2
 
-	// alwaysTrue is the default FilterFunc, which allows all objects
+	// AlwaysTrue is the default FilterFunc, which allows all objects
 	// passed through. This is used in the default case for passing all
 	// objects to the slowlane from the passed sharedInformer
-	alwaysTrue = func(interface{}) bool { return true }
+	AlwaysTrue = func(interface{}) bool { return true }
 )
 
 // Reconciler is the interface that controller implementations are expected
@@ -251,7 +252,7 @@ func NewImplFull(r Reconciler, options ControllerOptions) *Impl {
 		options.Reporter = MustNewStatsReporter(options.WorkQueueName, options.Logger)
 	}
 	if options.GlobalResyncFilterFunc == nil {
-		options.GlobalResyncFilterFunc = alwaysTrue
+		options.GlobalResyncFilterFunc = AlwaysTrue
 	}
 	return &Impl{
 		Name:                   options.WorkQueueName,
@@ -286,6 +287,9 @@ func (c *Impl) EnqueueSlowKey(key types.NamespacedName) {
 	c.logger.With(zap.String(logkey.Key, key.String())).
 		Debugf("Adding to the slow queue %s (depth(total/slow): %d/%d)",
 			safeKey(key), c.workQueue.Len(), c.workQueue.SlowLane().Len())
+	buf := make([]byte, 1<<16)
+	goruntime.Stack(buf, true)
+	c.logger.With(zap.String(logkey.Key, key.String())).Debugf("%s", buf)
 }
 
 // EnqueueSlow extracts namespaced name from the object and enqueues it on the slow
@@ -741,7 +745,7 @@ func WithFilterFunc(ctx context.Context, filter FilterFunc) context.Context {
 func GetFilterFunc(ctx context.Context) FilterFunc {
 	value := ctx.Value(filterFuncKey{})
 	if value == nil {
-		return alwaysTrue
+		return AlwaysTrue
 	}
 	return value.(FilterFunc)
 }
